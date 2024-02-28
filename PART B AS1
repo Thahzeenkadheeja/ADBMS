@@ -32,3 +32,4 @@ alter table EMPLOYEE drop column emp_id;
 | adhar_no | int         | YES  |     | NULL    |       |
 +----------+-------------+------+-----+---------+-------+
 
+//VERIFIED

@@ -1,0 +1,309 @@
+//DML-UPDATE
+//1
+select*from product;
++-----+--------+-------+
+| pid | pname  | price |
++-----+--------+-------+
+|   1 | pen    |    50 |
+|   2 | pencil |    70 |
+|   3 | soap   |   100 |
+|   4 | bottle |   150 |
+|   5 | dew    |    80 |
++-----+--------+-------+
+update product set price=250 where pid=4;
+select*from product;
++-----+--------+-------+
+| pid | pname  | price |
++-----+--------+-------+
+|   1 | pen    |    50 |
+|   2 | pencil |    70 |
+|   3 | soap   |   100 |
+|   4 | bottle |   250 |
+|   5 | dew    |    80 |
++-----+--------+-------+
+//2
+select*from customer;
++-------+--------+---------+---------+------------+
+| id    | name   | address | city    | ph_no      |
++-------+--------+---------+---------+------------+
+| 10001 | anu    | ABCD    | calicut |       NULL |
+| 10002 | sandra | EFGH    | tvm     | 9885431078 |
+| 10003 | lumna  | LMNOP   | pkd     | 9765431078 |
+| 10004 | aysha  | QRSTU   | kanur   |       NULL |
+| 10005 | hudha  | WXYZA   | wyd     | 9885455078 |
++-------+--------+---------+---------+------------+
+ update customer set city="kozhikode" where city="calicut";
+ select*from customer;
++-------+--------+---------+-----------+------------+
+| id    | name   | address | city      | ph_no      |
++-------+--------+---------+-----------+------------+
+| 10001 | anu    | ABCD    | kozhikode |       NULL |
+| 10002 | sandra | EFGH    | tvm       | 9885431078 |
+| 10003 | lumna  | LMNOP   | pkd       | 9765431078 |
+| 10004 | aysha  | QRSTU   | kanur     |       NULL |
+| 10005 | hudha  | WXYZA   | wyd       | 9885455078 |
++-------+--------+---------+-----------+------------+
+
+//3
+select*from product;
++-----+--------+-------+
+| pid | pname  | price |
++-----+--------+-------+
+|   1 | pen    |    50 |
+|   2 | pencil |    70 |
+|   3 | soap   |   100 |
+|   4 | bottle |   250 |
+|   5 | dew    |    80 |
++-----+--------+-------+
+update product set price=price+(price*2/100);
+select*from product;
++-----+--------+-------+
+| pid | pname  | price |
++-----+--------+-------+
+|   1 | pen    |    51 |
+|   2 | pencil |    71 |
+|   3 | soap   |   102 |
+|   4 | bottle |   255 |
+|   5 | dew    |    82 |
++-----+--------+-------+
+//4
+select*from customer;
++-------+--------+---------+-----------+------------+
+| id    | name   | address | city      | ph_no      |
++-------+--------+---------+-----------+------------+
+| 10001 | anu    | ABCD    | kozhikode |       NULL |
+| 10002 | sandra | EFGH    | tvm       | 9885431078 |
+| 10003 | lumna  | LMNOP   | pkd       | 9765431078 |
+| 10004 | aysha  | QRSTU   | kanur     |       NULL |
+| 10005 | hudha  | WXYZA   | wyd       | 9885455078 |
++-------+--------+---------+-----------+------------+
+update customer set address="rose villa",city="idukki",ph_no=90653412 where id=10003;
+select*from customer;
++-------+--------+------------+-----------+------------+
+| id    | name   | address    | city      | ph_no      |
++-------+--------+------------+-----------+------------+
+| 10001 | anu    | ABCD       | kozhikode |       NULL |
+| 10002 | sandra | EFGH       | tvm       | 9885431078 |
+| 10003 | lumna  | rose villa | idukki    |   90653412 |
+| 10004 | aysha  | QRSTU      | kanur     |       NULL |
+| 10005 | hudha  | WXYZA      | wyd       | 9885455078 |
++-------+--------+------------+-----------+------------+
+
+//
+select*from invoice_item;
+
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    101 |    2 |        1 |
+|    102 |    4 |        1 |
+|    103 |    5 |        2 |
+|    104 |    1 |        2 |
+|    105 |    4 |        1 |
++--------+------+----------+
+insert into invoice_item values(103,4,5);
+select*from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    101 |    2 |        1 |
+|    102 |    4 |        1 |
+|    103 |    5 |        2 |
+|    104 |    1 |        2 |
+|    105 |    4 |        1 |
+|    103 |    4 |        5 |
++--------+------+----------+
+
+//5
+update invoice_item set quantity=6 where inv_id=101;
+select*from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    101 |    2 |        6 |
+|    102 |    4 |        1 |
+|    103 |    5 |        2 |
+|    104 |    1 |        2 |
+|    105 |    4 |        1 |
+|    103 |    4 |        5 |
++--------+------+----------+
+
+To off foreign keys
+set foreign_key_checks=0;
+
+//DML DELETE
+1.mysql> select*from customer;
++-------+--------+------------+-----------+------------+
+| id    | name   | address    | city      | ph_no      |
++-------+--------+------------+-----------+------------+
+| 10001 | anu    | ABCD       | kozhikode |       NULL |
+| 10002 | sandra | EFGH       | tvm       | 9885431078 |
+| 10003 | lumna  | rose villa | idukki    |   90653412 |
+| 10004 | aysha  | QRSTU      | kanur     |       NULL |
+| 10005 | hudha  | WXYZA      | wyd       | 9885455078 |
++-------+--------+------------+-----------+------------+
+delete from customer where id=10001;
+mysql> select*from customer;
++-------+--------+------------+--------+------------+
+| id    | name   | address    | city   | ph_no      |
++-------+--------+------------+--------+------------+
+| 10002 | sandra | EFGH       | tvm    | 9885431078 |
+| 10003 | lumna  | rose villa | idukki |   90653412 |
+| 10004 | aysha  | QRSTU      | kanur  |       NULL |
+| 10005 | hudha  | WXYZA      | wyd    | 9885455078 |
++-------+--------+------------+--------+------------+
+
+//2 delete all purchase details of items its quantity less than 2
+mysql> select*from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    101 |    2 |        6 |
+|    102 |    4 |        1 |
+|    103 |    5 |        2 |
+|    104 |    1 |        2 |
+|    105 |    4 |        1 |
+|    103 |    4 |        5 |
++--------+------+----------+
+delete from invoice_item where quantity=2;
+select*from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    101 |    2 |        6 |
+|    102 |    4 |        1 |
+|    105 |    4 |        1 |
+|    103 |    4 |        5 |
++--------+------+----------+
+
+//3
+select*from product;
++-----+--------+-------+
+| pid | pname  | price |
++-----+--------+-------+
+|   1 | pen    |    51 |
+|   2 | pencil |    71 |
+|   3 | soap   |   102 |
+|   4 | bottle |   255 |
+|   5 | dew    |    82 |
++-----+--------+-------+
+
+select*from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    101 |    2 |        6 |
+|    102 |    4 |        1 |
+|    105 |    4 |        1 |
+|    103 |    4 |        5 |
++--------+------+----------+
+
+delete from invoice_item where inv_id=101 and pid=1;
+mysql> select*from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    101 |    2 |        6 |
+|    102 |    4 |        1 |
+|    105 |    4 |        1 |
+|    103 |    4 |        5 |
++--------+------+----------+
+
+mysql> delete from invoice_item where quantity<2;
+mysql> select *from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    101 |    2 |        6 |
+|    103 |    4 |        5 |
++--------+------+----------+
+
+delete from invoice_item where inv_id=101 and pid=1;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    103 |    4 |        5 |
++--------+------+----------+
+
+mysql> select * from customer;
++-------+--------+------------+--------+------------+
+| id    | name   | address    | city   | ph_no      |
++-------+--------+------------+--------+------------+
+| 10002 | sandra | EFGH       | tvm    | 9885431078 |
+| 10003 | lumna  | rose villa | idukki |   90653412 |
+| 10004 | aysha  | QRSTU      | kanur  |       NULL |
+| 10005 | hudha  | WXYZA      | wyd    | 9885455078 |
++-------+--------+------------+--------+------------+
+
+mysql> delete from customer where id=10003;
+mysql> select * from customer;
++-------+--------+---------+-------+------------+
+| id    | name   | address | city  | ph_no      |
++-------+--------+---------+-------+------------+
+| 10002 | sandra | EFGH    | tvm   | 9885431078 |
+| 10004 | aysha  | QRSTU   | kanur |       NULL |
+| 10005 | hudha  | WXYZA   | wyd   | 9885455078 |
++-------+--------+---------+-------+------------+
+
+
+
+          ********************************************************************
+          
+delete all records from table
+mysql> use thehzi;
+
+
+mysql> select * from STUDENT;
++---------+--------+------+------------+--------+
+| roll_no | name   | age  | address    | gender |
++---------+--------+------+------------+--------+
+|       1 | ABHI   |   20 | EHTDJJKVTJ | M      |
+|       2 | BANU   |   21 | DEFGHI     | F      |
+|       3 | DIYA   |   21 | DGGTGHI    | F      |
+|       4 | FARIS  |   23 | DYUUTINM   | M      |
+|       5 | ROHITH |   24 | DYWSADINM  | M      |
++---------+--------+------+------------+--------+
+
+delete from STUDENT;
+Query OK, 5 rows affected (0.00 sec)
+
+mysql> select * from STUDENT;
+Empty set (0.00 sec)
+
+mysql> select * from customer;
++-------+--------+---------+-------+------------+
+| id    | name   | address | city  | ph_no      |
++-------+--------+---------+-------+------------+
+| 10002 | sandra | EFGH    | tvm   | 9885431078 |
+| 10004 | aysha  | QRSTU   | kanur |       NULL |
+| 10005 | hudha  | WXYZA   | wyd   | 9885455078 |
++-------+--------+---------+-------+------------+
+
+mysql> delete from customer where id=10002;
+mysql> select * from customer;
++-------+-------+---------+-------+------------+
+| id    | name  | address | city  | ph_no      |
++-------+-------+---------+-------+------------+
+| 10004 | aysha | QRSTU   | kanur |       NULL |
+| 10005 | hudha | WXYZA   | wyd   | 9885455078 |
++-------+-------+---------+-------+------------+
+
+mysql> select *from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    101 |    2 |        6 |
+|    103 |    4 |        5 |
++--------+------+----------+
+mysql> delete from invoice_item where quantity=6;
+mysql> select * from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    103 |    4 |        5 |
++--------+------+----------+
+
+
+
+
+

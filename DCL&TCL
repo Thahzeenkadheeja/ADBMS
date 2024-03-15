@@ -1,0 +1,194 @@
+mysql> set autocommit=off;
+ insert into student values(4,"thehzin");
+commit;
+mysql> insert into student values(4,"thehzin");
+mysql> SELECT *FROM student;
++---------+---------+
+| roll_no | name    |
++---------+---------+
+|       1 | anu     |
+|       2 | banu    |
+|       3 | thehzi  |
+|       4 | thehzin |
++---------+---------+
+
+mysql> set autocommit=off;
+mysql> delete from student where name="thehzin";
+mysql> SELECT *FROM student;
++---------+--------+
+| roll_no | name   |
++---------+--------+
+|       1 | anu    |
+|       2 | banu   |
+|       3 | thehzi |
++---------+--------+
+mysql> rollback;
+mysql> SELECT *FROM student;
++---------+---------+
+| roll_no | name    |
++---------+---------+
+|       1 | anu     |
+|       2 | banu    |
+|       3 | thehzi  |
+|       4 | thehzin |
++---------+---------+
+mysql> set autocommit=off;
+
+mysql> SELECT *FROM student;
++---------+---------+
+| roll_no | name    |
++---------+---------+
+|       1 | anu     |
+|       2 | banu    |
+|       3 | thehzi  |
+|       4 | thehzin |
++---------+---------+
+
+mysql> insert into student values(5,"shamla");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint s1;
+mysql> insert into student values(7,"hudha");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint s2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into student values(8,"nushri");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT *FROM student;
++---------+---------+
+| roll_no | name    |
++---------+---------+
+|       1 | anu     |
+|       2 | banu    |
+|       3 | thehzi  |
+|       4 | thehzin |
+|       5 | shamla  |
+|       7 | hudha   |
+|       8 | nushri  |
++---------+---------+
+
+mysql> rollback to s2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT *FROM student;
++---------+---------+
+| roll_no | name    |
++---------+---------+
+|       1 | anu     |
+|       2 | banu    |
+|       3 | thehzi  |
+|       4 | thehzin |
+|       5 | shamla  |
+|       7 | hudha   |
++---------+---------+
+6 rows in set (0.00 sec)
+
+
+***********************************************************
+ DCL COMMANDS
+ 
+mysql> create user thahzin@'localhost' identified by'@A4apple';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create user kadheeja@'localhost' identified by'@B4batss';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> grant select on INVOICE.customer to thahzin@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for thahzin@'localhost';
++---------------------------------------------------------------+
+| Grants for thahzin@localhost                                  |
++---------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `thahzin`@`localhost`                   |
+| GRANT SELECT ON `INVOICE`.`customer` TO `thahzin`@`localhost` |
++---------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> grant select,update on INVOICE.customer to kadheeja@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for kadheeja@'localhost';
++------------------------------------------------------------------------+
+| Grants for kadheeja@localhost                                          |
++------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `kadheeja`@`localhost`                           |
+| GRANT SELECT, UPDATE ON `INVOICE`.`customer` TO `kadheeja`@`localhost` |
++------------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> revoke select on INVOICE.customer from thahzin@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for thahzin@'localhost';
++---------------------------------------------+
+| Grants for thahzin@localhost                |
++---------------------------------------------+
+| GRANT USAGE ON *.* TO `thahzin`@`localhost` |
++---------------------------------------------+
+1 row in set (0.00 sec)
+
+// give insert &select privilege to user 1 on customer table in the invoice database
+
+mysql> grant insert,select on INVOICE.customer to thahzin@'localhost';
+mysql> show grants for thahzin@'localhost';
++-----------------------------------------------------------------------+
+| Grants for thahzin@localhost                                          |
++-----------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `thahzin`@`localhost`                           |
+| GRANT SELECT, INSERT ON `INVOICE`.`customer` TO `thahzin`@`localhost` |
++-----------------------------------------------------------------------+
+
+//give update delete user 2 on all tables
+
+
+mysql> grant update,delete on INVOICE.* to kadheeja@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for kadheeja@'localhost';
++------------------------------------------------------------------------+
+| Grants for kadheeja@localhost                                          |
++------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `kadheeja`@`localhost`                           |
+| GRANT UPDATE, DELETE ON `INVOICE`.* TO `kadheeja`@`localhost`          |
+| GRANT SELECT, UPDATE ON `INVOICE`.`customer` TO `kadheeja`@`localhost` |
++------------------------------------------------------------------------+
+
+//REVOKE
+
+mysql> show grants for kadheeja@'localhost';
++------------------------------------------------------------------------+
+| Grants for kadheeja@localhost                                          |
++------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `kadheeja`@`localhost`                           |
+| GRANT UPDATE, DELETE ON `INVOICE`.* TO `kadheeja`@`localhost`          |
+| GRANT SELECT, UPDATE ON `INVOICE`.`customer` TO `kadheeja`@`localhost` |
++------------------------------------------------------------------------+
+3 rows in set (0.00 sec)
+
+mysql> revoke DELETE on INVOICE.* from kadheeja@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show grants for kadheeja@'localhost';
++------------------------------------------------------------------------+
+| Grants for kadheeja@localhost                                          |
++------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `kadheeja`@`localhost`                           |
+| GRANT UPDATE ON `INVOICE`.* TO `kadheeja`@`localhost`                  |
+| GRANT SELECT, UPDATE ON `INVOICE`.`customer` TO `kadheeja`@`localhost` |
++------------------------------------------------------------------------+
+3 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+

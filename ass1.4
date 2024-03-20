@@ -1,0 +1,147 @@
+// 1.4 accesing database
+
+//1
+mysql> SELECT * FROM customer;
++-------+-------+---------+-------+------------+
+| id    | name  | address | city  | ph_no      |
++-------+-------+---------+-------+------------+
+| 10004 | aysha | QRSTU   | kanur |       NULL |
+| 10005 | hudha | WXYZA   | wyd   | 9885455078 |
++-------+-------+---------+-------+------------+
+2 rows in set (0.00 sec)
+
+//2
+mysql> SELECT pname,price from product;
++--------+-------+
+| pname  | price |
++--------+-------+
+| pen    |    51 |
+| pencil |    71 |
+| soap   |   102 |
+| bottle |   255 |
+| dew    |    82 |
++--------+-------+
+5 rows in set (0.00 sec)
+
+//3
+
+mysql> SELECT * FROM invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    103 |    4 |        5 |
+|    101 |    2 |        1 |
+|    102 |    4 |        1 |
++--------+------+----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT pid from invoice_item;
++------+
+| pid  |
++------+
+|    2 |
+|    4 |
+|    4 |
++------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT distinct pid from invoice_item;
++------+
+| pid  |
++------+
+|    2 |
+|    4 |
++------+
+2 rows in set (0.00 sec)
+
+//4
+mysql> select price from product;
++-------+
+| price |
++-------+
+|    51 |
+|    71 |
+|   102 |
+|   255 |
+|    82 |
++-------+
+5 rows in set (0.00 sec)
+
+mysql> select price from product where price between 50 and 150;
++-------+
+| price |
++-------+
+|    51 |
+|    71 |
+|   102 |
+|    82 |
++-------+
+4 rows in set (0.00 sec)
+
+//5 list the customer details who lives in 'ekm','wyd'
+
+mysql> select * from customer;
++-------+-------+---------+-------+------------+
+| id    | name  | address | city  | ph_no      |
++-------+-------+---------+-------+------------+
+| 10004 | aysha | QRSTU   | kanur |       NULL |
+| 10005 | hudha | WXYZA   | wyd   | 9885455078 |
+| 10006 | lumna | LMNOP   | EKM   | 9876543212 |
++-------+-------+---------+-------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from customer where city IN ("EKM","wyd");
++-------+-------+---------+------+------------+
+| id    | name  | address | city | ph_no      |
++-------+-------+---------+------+------------+
+| 10005 | hudha | WXYZA   | wyd  | 9885455078 |
+| 10006 | lumna | LMNOP   | EKM  | 9876543212 |
++-------+-------+---------+------+------------+
+2 rows in set (0.01 sec)
+
+//6invoice details from 1st january 2021 to 31st march 2021
+mysql> select * from invoice_master;
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|    101 |   10001 | 2022-07-20 |
+|    102 |   10002 | 2021-01-14 |
+|    103 |   10003 | 2023-04-17 |
+|    104 |   10001 | 2023-01-24 |
+|    105 |   10005 | 2023-01-24 |
++--------+---------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from invoice_master where inv_date between 20210101 and 20210331;
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|    102 |   10002 | 2021-01-14 |
++--------+---------+------------+
+1 row in set (0.00 sec)
+
+//7 customer details who not live in 'wyd'
+
+mysql> select * from customer;
++-------+-------+---------+-------+------------+
+| id    | name  | address | city  | ph_no      |
++-------+-------+---------+-------+------------+
+| 10004 | aysha | QRSTU   | kanur |       NULL |
+| 10005 | hudha | WXYZA   | wyd   | 9885455078 |
+| 10006 | lumna | LMNOP   | EKM   | 9876543212 |
++-------+-------+---------+-------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from customer where city NOT IN ("wyd");
++-------+-------+---------+-------+------------+
+| id    | name  | address | city  | ph_no      |
++-------+-------+---------+-------+------------+
+| 10004 | aysha | QRSTU   | kanur |       NULL |
+| 10006 | lumna | LMNOP   | EKM   | 9876543212 |
++-------+-------+---------+-------+------------+
+2 rows in set (0.00 sec)
+
+
+
+
+

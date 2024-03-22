@@ -1,0 +1,105 @@
+//1.6
+//1 list product name price except soap on price order
+mysql> select* from product;
++-----+--------+-------+
+| pid | pname  | price |
++-----+--------+-------+
+|   1 | pen    |    51 |
+|   2 | pencil |    71 |
+|   3 | soap   |   102 |
+|   4 | bottle |   255 |
+|   5 | dew    |    82 |
++-----+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select pname,price from product where pname!='soap' ORDER BY price;
++--------+-------+
+| pname  | price |
++--------+-------+
+| pen    |    51 |
+| pencil |    71 |
+| dew    |    82 |
+| bottle |   255 |
++--------+-------+
+4 rows in set (0.00 sec)
+
+
+4 rows in set (0.00 sec)
+
+//2min max avg price of products
+mysql> select* from product;
++-----+--------+-------+
+| pid | pname  | price |
++-----+--------+-------+
+|   1 | pen    |    51 |
+|   2 | pencil |    71 |
+|   3 | soap   |   102 |
+|   4 | bottle |   255 |
+|   5 | dew    |    82 |
++-----+--------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select MIN(price),MAX(price),AVG(price) from product;
++------------+------------+------------+
+| MIN(price) | MAX(price) | AVG(price) |
++------------+------------+------------+
+|         51 |        255 |   112.2000 |
++------------+------------+------------+
+1 row in set (0.00 sec)
+
+//3 find no of customers in each city
+mysql> select*from customer;
++-------+-------+---------+-------+------------+
+| id    | name  | address | city  | ph_no      |
++-------+-------+---------+-------+------------+
+| 10004 | aysha | QRSTU   | kanur |       NULL |
+| 10005 | hudha | WXYZA   | wyd   | 9885455078 |
+| 10006 | lumna | LMNOP   | EKM   | 9876543212 |
++-------+-------+---------+-------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select city,COUNT(*)from customer GROUP BY city;
++-------+----------+
+| city  | COUNT(*) |
++-------+----------+
+| kanur |        1 |
+| wyd   |        1 |
+| EKM   |        1 |
++-------+----------+
+3 rows in set (0.01 sec)
+
+//4 no of customers in each city,only include city with more than 3 customers
+mysql> select*from customer;
++-------+--------+---------+----------+------------+
+| id    | name   | address | city     | ph_no      |
++-------+--------+---------+----------+------------+
+| 10004 | aysha  | QRSTU   | kanur    |       NULL |
+| 10005 | hudha  | WXYZA   | wyd      | 9885455078 |
+| 10006 | lumna  | LMNOP   | EKM      | 9876543212 |
+| 10007 | banu   | ABCD    | palakkad | 8085458321 |
+| 10008 | shamla | HIJK    | Calicut  | 8056091221 |
+| 10009 | thehzi | ZABC    | Calicut  | 6789034217 |
++-------+--------+---------+----------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select city,COUNT(*)from customer GROUP BY city HAVING COUNT(city)>1;
++---------+----------+
+| city    | COUNT(*) |
++---------+----------+
+| Calicut |        2 |
++---------+----------+
+1 row in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+

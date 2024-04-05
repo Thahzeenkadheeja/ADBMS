@@ -91,7 +91,7 @@ mysql> select city,COUNT(*)from customer GROUP BY city HAVING COUNT(city)>1;
 1 row in set (0.00 sec)
 
 
-
+//VERIFIED
 
 
 

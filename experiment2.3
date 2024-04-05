@@ -1,0 +1,94 @@
+PL/SQL PROGRAMS-TRIGGERS
+
+//Create a trigger to handle updates to the customer table
+mysql>  create temporary table customer1 select * from customer;
+Query OK, 6 rows affected (0.00 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> desc customer1;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| id      | int         | NO   |     | NULL    | NULL  |
+| name    | varchar(20) | YES  |     | NULL    | NULL  |
+| address | varchar(30) | YES  |     | NULL    | NULL  |
+| city    | varchar(20) | YES  |     | NULL    | NULL  |
+| ph_no   | bigint      | YES  |     | NULL    | NULL  |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> create TRIGGER cust_Trig after update on customer for each row begin insert into Customers1 set id=New.id,name=New.name,address=New.address,city=New.city,ph_no=New.ph_no;
+    -> end
+    -> //
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from customer;
+    -> //
++-------+--------+---------+----------+------------+
+| id    | name   | address | city     | ph_no      |
++-------+--------+---------+----------+------------+
+| 10004 | aysha  | QRSTU   | kanur    |       NULL |
+| 10005 | hudha  | WXYZA   | wyd      | 9885455078 |
+| 10006 | lumna  | LMNOP   | EKM      | 9876543212 |
+| 10007 | banu   | ABCD    | palakkad | 8085458321 |
+| 10008 | shamla | HIJK    | Calicut  | 8056091221 |
+| 10009 | thehzi | ZABC    | Calicut  | 6789034217 |
++-------+--------+---------+----------+------------+
+6 rows in set (0.00 sec)
+
+
+mysql> update customer set City ="Idukki" where Id=10007;
+    -> //
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update Customer set ph_no =9870564534 where Id=10006;
+    -> //
+ERROR 1146 (42S02): Table 'INVOICE.Customer' doesn't exist
+mysql> update customer set ph_no =9870564534 where Id=10006;
+    -> //
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from Customers1;
+    -> //
++-------+--------+---------+----------+------------+
+| id    | name   | address | city     | ph_no      |
++-------+--------+---------+----------+------------+
+| 10004 | aysha  | QRSTU   | kanur    |       NULL |
+| 10005 | hudha  | WXYZA   | wyd      | 9885455078 |
+| 10006 | lumna  | LMNOP   | EKM      | 9876543212 |
+| 10007 | banu   | ABCD    | palakkad | 8085458321 |
+| 10008 | shamla | HIJK    | Calicut  | 8056091221 |
+| 10009 | thehzi | ZABC    | Calicut  | 6789034217 |
+| 10007 | banu   | ABCD    | Idukki   | 8085458321 |
+| 10006 | lumna  | LMNOP   | EKM      | 9870564534 |
++-------+--------+---------+----------+------------+
+8 rows in set (0.00 sec)
+
+mysql> truncate Customers1;
+    -> //
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from Customers1;
+    -> //
+Empty set (0.00 sec)
+
+
+mysql> update customer set City ="Tvm" where Id=10007;;
+    -> //
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from Customers1;
+    -> //
++-------+------+---------+------+------------+
+| id    | name | address | city | ph_no      |
++-------+------+---------+------+------------+
+| 10007 | banu | ABCD    | Tvm  | 8085458321 |
++-------+------+---------+------+------------+
+1 row in set (0.00 sec)
+
+
+
+

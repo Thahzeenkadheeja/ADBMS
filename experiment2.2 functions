@@ -27,4 +27,4 @@ mysql> select Pid,Pname,Price,PriceInd(Price) from product;
 +-----+--------+-------+-----------------+
 5 rows in set (0.00 sec)
 
-
+//VERIFIED

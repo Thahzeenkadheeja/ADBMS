@@ -1,0 +1,63 @@
+NOsQL  CRUD
+1.write a mongoDB query to create an invoice db&collections(customer,product)&its corresponding documents.
+
+INVOICE> db.CUSTOMER.insertOne({"id":"10001","name":"anu","address":"abcd"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('66138a3865ee545b13ef634b')
+}
+INVOICE> db.CUSTOMER.insertMany([{"id":"10002","name":"sandra","address":"efgh","city":"calicut"},{"id":"10003","name":"lumna","address":"lmno","city":"kannur","ph_no":"9895658790"},{"id":"10004","name":"aysha","city":"palakkad","ph_no":"9876543210"},{"id":"10005","name":"hudha","address":"wxyz","city":"wayanad","ph_no":"8765434567"}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('66138d3f65ee545b13ef634c'),
+    '1': ObjectId('66138d3f65ee545b13ef634d'),
+    '2': ObjectId('66138d3f65ee545b13ef634e'),
+    '3': ObjectId('66138d3f65ee545b13ef634f')
+  }
+}
+//to find all documents from customer
+INVOICE> db.CUSTOMER.find()
+[
+  {
+    _id: ObjectId('66138a3865ee545b13ef634b'),
+    id: '10001',
+    name: 'anu',
+    address: 'abcd'
+  },
+  {
+    _id: ObjectId('66138d3f65ee545b13ef634c'),
+    id: '10002',
+    name: 'sandra',
+    address: 'efgh',
+    city: 'calicut'
+  },
+  {
+    _id: ObjectId('66138d3f65ee545b13ef634d'),
+    id: '10003',
+    name: 'lumna',
+    address: 'lmno',
+    city: 'kannur',
+    ph_no: '9895658790'
+  },
+  {
+    _id: ObjectId('66138d3f65ee545b13ef634e'),
+    id: '10004',
+    name: 'aysha',
+    city: 'palakkad',
+    ph_no: '9876543210'
+  },
+  {
+    _id: ObjectId('66138d3f65ee545b13ef634f'),
+    id: '10005',
+    name: 'hudha',
+    address: 'wxyz',
+    city: 'wayanad',
+    ph_no: '8765434567'
+  }
+]
+//update the city in collection customer
+INVOICE> db.CUSTOMER.updateOne({"city":"palakkad"},{$set:{"city":"tvm"}})
+//to delete whose city is wayanad
+INVOICE> db.CUSTOMER.deleteOne({"city":"wayanad"})
+

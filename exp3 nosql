@@ -61,3 +61,4 @@ INVOICE> db.CUSTOMER.updateOne({"city":"palakkad"},{$set:{"city":"tvm"}})
 //to delete whose city is wayanad
 INVOICE> db.CUSTOMER.deleteOne({"city":"wayanad"})
 
+//VERIFIED

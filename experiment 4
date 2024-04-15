@@ -1,0 +1,82 @@
+                         NoSQL -Retrieving Data
+
+
+//to display the Customer documents having City "ekm","tvm"
+INVOICE> db.CUSTOMER.find({$or:[{"city":"tvm"},{"city":"ekm"}]})
+[
+  {
+    _id: ObjectId('66138d3f65ee545b13ef634e'),
+    id: '10004',
+    name: 'aysha',
+    city: 'tvm',
+    ph_no: '9876543210'
+  },
+  {
+    _id: ObjectId('6613921065ee545b13ef6350'),
+    id: '10005',
+    name: 'hadhiya',
+    address: 'abcd',
+    city: 'ekm',
+    age: '20'
+  }
+]
+
+//to display all customer documents who have age>50
+
+INVOICE> db.CUSTOMER.find({"age":{$gt:"50"}}).pretty()
+[
+  {
+    _id: ObjectId('6613925665ee545b13ef6351'),
+    id: '10006',
+    name: 'rajan',
+    address: 'abc',
+    city: 'thrissur',
+    age: '60'
+  }
+]
+
+//to find customer documents who not live in "tvm"
+INVOICE> db.CUSTOMER.find({"city":{$ne:"tvm"}}).pretty()
+[
+  {
+    _id: ObjectId('66138a3865ee545b13ef634b'),
+    id: '10001',
+    name: 'anu',
+    address: 'abcd'
+  },
+  {
+    _id: ObjectId('66138d3f65ee545b13ef634c'),
+    id: '10002',
+    name: 'sandra',
+    address: 'efgh',
+    city: 'calicut'
+  },
+  {
+    _id: ObjectId('66138d3f65ee545b13ef634d'),
+    id: '10003',
+    name: 'lumna',
+    address: 'lmno',
+    city: 'kannur',
+    ph_no: '9895658790'
+  },
+  {
+    _id: ObjectId('6613921065ee545b13ef6350'),
+    id: '10005',
+    name: 'hadhiya',
+    address: 'abcd',
+    city: 'ekm',
+    age: '20'
+  },
+  {
+    _id: ObjectId('6613925665ee545b13ef6351'),
+    id: '10006',
+    name: 'rajan',
+    address: 'abc',
+    city: 'thrissur',
+    age: '60'
+  }
+]
+
+
+
+
